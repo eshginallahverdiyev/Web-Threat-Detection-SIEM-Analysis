@@ -255,7 +255,7 @@ sudo systemctl start filebeat
 The first step in any real-world attack is reconnaissance. Nmap was used to discover open ports and running services on the target.
 
 ```bash
-nmap -sV -sC -A -p- <target-ip>
+nmap -T5 -A -p- <target-ip>
 ```
 
 ![Nmap Scan](images/kali-nmap-scan.png)
@@ -274,12 +274,12 @@ nmap -sV -sC -A -p- <target-ip>
 Gobuster was used to discover hidden directories and files on the web server.
 
 ```bash
-gobuster dir -u http://<target-ip> -w /usr/share/wordlists/dirb/common.txt -x php,html,txt
+gobuster dir -u http://<target-ip> -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
 ```
 
 ![Gobuster Scan](images/kali-gobuster.png)
 
-*Figure 4.2 — Gobuster discovering directories: `/admin`, `/uploads`, `/backup`, etc. Status codes 200/301 indicate accessible paths.*
+*Figure 4.2 — Gobuster discovering directories. Status codes 200/301 indicate accessible paths.*
 
 ---
 
@@ -335,27 +335,27 @@ curl "http://<target-ip>/login.php?id=1 UNION SELECT NULL,concat(username,':',pa
 
 ![SQL Injection 1](images/kali-sqlinjection.png)
 
-*Figure 4.4 — First curl request confirming SQL injection vulnerability (server returns database error on malformed input).*
+*Figure 4.4*
 
 ![SQL Injection 2](images/kali-sqlinjection2.png)
 
-*Figure 4.5 — UNION-based injection successfully enumerating available databases.*
+*Figure 4.5*
 
 ![SQL Injection 3](images/kali-sqlinjection3.png)
 
-*Figure 4.6 — curl response listing tables within the target database.*
+*Figure 4.6*
 
 ![SQL Injection 4](images/kali-sqlinjection4.png)
 
-*Figure 4.7 — Extracting column names from the `users` table via curl.*
+*Figure 4.7*
 
 ![SQL Injection 5](images/kali-sqlinjection5.png)
 
-*Figure 4.8 — Dumping usernames and hashed passwords using a UNION SELECT payload.*
+*Figure 4.8*
 
 ![SQL Injection 6](images/kali-sqlinjection6.png)
 
-*Figure 4.9 — Final credentials extracted. Full database compromise demonstrated using only curl.*
+*Figure 4.9*
 
 ---
 
